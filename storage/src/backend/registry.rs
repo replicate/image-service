@@ -261,7 +261,7 @@ impl RegistryState {
                 Method::GET,
                 auth.realm.as_str(),
                 Some(&query),
-                Some(ReqBody::Form(form)),
+                None,
                 &mut headers,
                 true,
                 true,

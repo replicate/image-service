@@ -698,7 +698,7 @@ pub struct BlobIoVec {
     /// The blob associated with the IO operation.
     bi_blob: Arc<BlobInfo>,
     /// Total size of blob IOs to be performed.
-    bi_size: u32,
+    bi_size: u64,
     /// Array of blob IOs, these IOs should executed sequentially.
     pub(crate) bi_vec: Vec<BlobIoDesc>,
 }
@@ -717,8 +717,8 @@ impl BlobIoVec {
     pub fn push(&mut self, desc: BlobIoDesc) {
         assert_eq!(self.bi_blob.blob_index(), desc.blob.blob_index());
         assert_eq!(self.bi_blob.blob_id(), desc.blob.blob_id());
-        assert!(self.bi_size.checked_add(desc.size).is_some());
-        self.bi_size += desc.size;
+        assert!(self.bi_size.checked_add(desc.size as u64).is_some());
+        self.bi_size += desc.size as u64;
         self.bi_vec.push(desc);
     }
 
@@ -748,7 +748,7 @@ impl BlobIoVec {
     }
 
     /// Get size of pending IO data.
-    pub fn size(&self) -> u32 {
+    pub fn size(&self) -> u64 {
         self.bi_size
     }
 

@@ -658,7 +658,7 @@ impl FileSystem for Rafs {
             let r = self.device.read_to(w, desc)?;
             result += r;
             recorder.mark_success(r);
-            if r as u32 != desc.size() {
+            if r as u64 != desc.size() {
                 break;
             }
         }

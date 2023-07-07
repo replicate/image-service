@@ -124,7 +124,7 @@ sudo systemctl restart containerd
 ```
 
 ### Using Runtime-level Snapshotter in Container for Nydus
-How about: Containerd (>= v1.7.0) supports configuring the ```runtime-level``` snapshotter. By following the steps below, we can declare runtimes that use different snapshotters:
+Containerd (version >= v1.7.0) has supported developers configuring ```runtime-level snapshotter```. Following these two steps, we can use different snapshotter for different runtime.
 #### Step 1: Configure Containerd
 ```toml
 [plugins."io.containerd.grpc.v1.cri".containerd]
@@ -147,9 +147,10 @@ linux:
     namespace_options:
       network: 2
 annotations:
+  "io.containerd.osfeature": "nydus.remoteimage.v1"
   "io.containerd.cri.runtime-handler": "nydus-runc"
 ```
-As shown above, the sandbox is declared with ```"io.containerd.cri.runtime-handler": "nydus-runc"``` annotation will use the ```nydus``` snapshotter, while others will use the default ```overlayfs``` snapshotter.
+As above two steps configured, if we set annotation ```"io.containerd.cri.runtime-handler": "nydus-runc"``` in sandbox spec, the ```nydus snapshotter``` will be used. Conversely (i.e. not setting the annotation), the ```overlayfs``` snapshotter will be used.
 
 ## Start a Local Registry Container
 

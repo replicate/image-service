@@ -630,7 +630,10 @@ impl Connection {
         let mut cb = Client::builder()
             .timeout(timeout)
             .connect_timeout(connect_timeout)
-            .redirect(Policy::limited(2));
+            .redirect(Policy::limited(2))
+            .use_rustls_tls()
+            .tcp_keepalive(Some(Duration::from_secs(5 * 60)))
+            .pool_max_idle_per_host(30);
 
         if config.skip_verify {
             cb = cb.danger_accept_invalid_certs(true);

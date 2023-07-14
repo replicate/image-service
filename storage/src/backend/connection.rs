@@ -633,7 +633,7 @@ impl Connection {
             .redirect(Policy::limited(2))
             .use_rustls_tls()
             .tcp_keepalive(Some(Duration::from_secs(5 * 60)))
-            .pool_max_idle_per_host(30);
+            .pool_max_idle_per_host(20);
 
         if config.skip_verify {
             cb = cb.danger_accept_invalid_certs(true);
@@ -642,7 +642,11 @@ impl Connection {
         if !proxy.is_empty() {
             cb = cb.proxy(reqwest::Proxy::all(proxy).map_err(|e| einval!(e))?)
         }
-
+        debug!(
+            "{} building connection with proxy: {}",
+            std::thread::current().name().unwrap_or_default(),
+            proxy
+        );
         cb.build().map_err(|e| einval!(e))
     }
 

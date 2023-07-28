@@ -436,7 +436,7 @@ impl RegistryReader {
             .connection
             .call::<&[u8]>(method.clone(), url, None, None, &mut headers, false, false)
             .map_err(RegistryError::Request)?;
-        debug!("made request to registry")
+        debug!("made request to registry");
         if resp.status() == StatusCode::UNAUTHORIZED {
             if headers.contains_key(HEADER_AUTHORIZATION) {
                 // If we request registry (harbor server) with expired authorization token,

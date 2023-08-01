@@ -10,7 +10,7 @@ use std::str::FromStr;
 use std::sync::atomic::{AtomicBool, AtomicI16, AtomicU8, Ordering};
 use std::sync::Arc;
 use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
-use std::{fmt, thread, env};
+use std::{env, fmt, thread};
 
 use log::{max_level, Level};
 

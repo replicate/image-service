@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        arch: [amd64, arm64, ppc64le, riscv64]
+        arch: [amd64]
     steps:
     - uses: actions/checkout@v2
     - name: Cache cargo
@@ -55,7 +55,7 @@ jobs:
     runs-on: macos-11
     strategy:
       matrix:
-        arch: [amd64, arm64]
+        arch: [arm64]
     steps:
     - uses: actions/checkout@v2
     - name: Cache cargo
@@ -85,7 +85,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        arch: [amd64, arm64, ppc64le, riscv64]
+        arch: [amd64]
     env:
       DOCKER: false
     steps:
@@ -120,7 +120,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        arch: [amd64, arm64, ppc64le, riscv64]
+        arch: [amd64]
         os: [linux]
     needs: [nydus-linux, contrib-linux]
     steps:
@@ -153,7 +153,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        arch: [amd64]
+        arch: [arm64]
         os: [darwin]
     needs: [nydus-macos]
     steps:
